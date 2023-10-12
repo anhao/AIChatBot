@@ -1,0 +1,16 @@
+version: '3'
+services:
+  bot:
+    image: alone88/aichatbot
+    environment:
+      - MP_APPID=
+      - MP_SECRET=
+      - MP_TOKEN=
+      - DEFAULT_API_URL=https://api.aigc2d.com/v1
+      - DEFAULT_WORD=
+      - DEFAULT_API_KEY=aigc2d...
+      - ENABLE_HISTORY=true
+    volumes:
+      - ./data:/app/data
+    ports:
+      - 80:8080

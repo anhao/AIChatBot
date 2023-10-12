@@ -1,3 +1,5 @@
 .idea
 /wechat
 *.exe
+.env
+/data

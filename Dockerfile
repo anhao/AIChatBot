@@ -7,14 +7,16 @@ ENV GO111MODULE=on
 ENV GOPROXY=https://goproxy.cn,direct
 
 
-RUN CGO_ENABLED=0 go build -ldflags "-s -w" -o wechat_bot main.go
+RUN CGO_ENABLED=0 go build -ldflags "-s -w" -o aichat_bot main.go
 
 FROM scratch
 
 WORKDIR /app
 
-COPY --from=builder /app/wechat_bot .
+COPY --from=builder /app/aichat_bot .
+
+ENV GIN_MODE=release
 
 EXPOSE 8080
 
-CMD ["./wechat_bot"]
+CMD ["./aichat_bot"]
