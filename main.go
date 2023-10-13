@@ -30,9 +30,9 @@ type Config struct {
 	MpToken          string  `env:"MP_TOKEN"  envDefault:""    `                            //公众号 token
 	TelegramBotToken string  `env:"TELEGRAM_BOT_TOKEN"`                                     //TELEGRAM_BOT_TOKEN TODO
 	DefaultApiUrl    string  `env:"DEFAULT_API_URL" envDefault:"https://api.aigc2d.com/v1"` //openai 接口地址
-	DefaultKey       string  `env:"DEFAULT_KEY"`                                            //openai key
+	DefaultApiKey    string  `env:"DEFAULT_API_KEY"`                                        //openai key
 	DefaultWord      string  `env:"DEFAULT_WORD"`                                           //默认触发关键词
-	DefaultModel     string  `env:"DEFAULT_MODEL" envDefault:"gpt-3.5-turbo"`               // 默认模型
+	DefaultModel     string  `env:"DEFAULT_MODEL" envDefault:"gpt-3.5-turbo-16k"`           // 默认模型
 	DefaultSystem    string  `env:"DEFAULT_SYSTEM" envDefault:""`                           //系统提示
 	MaxToken         int     `env:"MAX_TOKEN"`                                              //最大 tokens
 	Temperature      float32 `env:"TEMPERATURE" envDefault:"0.9"`                           //
@@ -125,7 +125,7 @@ func Wechat(c *gin.Context) {
 				switch strings.ToLower(key) {
 				case "setkey":
 					//设置 apikey
-					config.DefaultKey = value
+					config.DefaultApiKey = value
 					return messages.NewText("key 设置成功")
 				case "seturl":
 					config.DefaultApiUrl = value
@@ -165,11 +165,11 @@ func Wechat(c *gin.Context) {
 
 			}
 
-			if len(config.DefaultKey) == 0 || len(config.DefaultApiUrl) == 0 {
+			if len(config.DefaultApiKey) == 0 || len(config.DefaultApiUrl) == 0 {
 				apikey := "✅"
 				apiurl := "✅"
 				search := "✅"
-				if len(config.DefaultKey) == 0 {
+				if len(config.DefaultApiKey) == 0 {
 					apikey = "❌"
 				}
 				if len(config.DefaultApiUrl) == 0 {
@@ -236,7 +236,7 @@ func llmReply(c context.Context, messages []openai.ChatCompletionMessage, openid
 	if botType == "wechat" {
 		sendTyping(c, openid)
 	}
-	clientConfig := openai.DefaultConfig(config.DefaultKey)
+	clientConfig := openai.DefaultConfig(config.DefaultApiKey)
 	clientConfig.BaseURL = config.DefaultApiUrl
 	openaiClient := openai.NewClientWithConfig(clientConfig)
 

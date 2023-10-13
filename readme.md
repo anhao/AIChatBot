@@ -38,7 +38,7 @@ AIGC2D 配置示例
 
 ```yaml
 - DEFAULT_API_URL=https://api.aigc2d.com/v1
-- DEFAULT_KEY=aigc2d...
+- DEFAULT_API_KEY=aigc2d...
 - DEFAULT_MODEL=gpt-3.5-turbo-16k
 ```
 
@@ -72,7 +72,7 @@ docker run -d --name bot \
 -e MP_TOKEN= \
 -e DEFAULT_API_URL=https://api.agic2d.com/v1 \
 -e DEFAULT_WORD= \  
--e DEFAULT_KEY=aigc2d... \
+-e DEFAULT_API_KEY=aigc2d... \
 -v ./data:/app/data \
 -p 80:8080 \
 alone88/aichatbot:latest
@@ -141,7 +141,7 @@ docker-compose up -d
 | MP_SECRET          | 微信公众号Secret                                     |
 | MP_TOKEN           | 微信公众号Token                                      |
 | STREAM             | 是否采用流式传输                                        |
-| DEFAULT_KEY        | OpenAI/AIGC2D的apikey                            |
+| DEFAULT_API_KEY    | OpenAI/AIGC2D的apikey                            |
 | DEFAULT_API_URL    | OpenAI/AIGC2D的接口地址，默认为https://api.aigc2d.com/v1 |
 | DEFAULT_WORD       | 触发词，包含触发词才会触发回复,不设置则所有都会触发回复                    |
 | DEFAULT_MODEL      | 模型名称，默认为gpt-3.5-turbo-16k                       |
