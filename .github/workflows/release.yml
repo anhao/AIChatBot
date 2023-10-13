@@ -1,8 +1,9 @@
 name: 🎉 Release Binary
+
 on:
-  push:
-    tags:
-      - 'v*'
+  workflow_dispatch:
+  release:
+    types: [published]
 
 permissions:
   contents: write
