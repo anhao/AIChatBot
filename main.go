@@ -41,6 +41,8 @@ type Config struct {
 	EnableHistory    bool    `env:"ENABLE_HISTORY"`
 	EnableSearch     bool    `env:"ENABLE_SEARCH"`
 	SerperKey        string  `env:"SERPER_KEY"` //serper.dev apikey
+	WechatDebug      bool    `env:"WECHAT_DEBUG"`
+	WechatHttpDebug  bool    `env:"WECHAT_HTTP_DEBUG"`
 }
 
 var commandHelp = []string{
@@ -70,8 +72,10 @@ func initDB() {
 }
 
 func initConfig() {
+	fmt.Println("初始化配置")
 	err := env.Parse(&config)
 	if err != nil {
+		fmt.Println("初始化配置失败:", err)
 		return
 	}
 	fmt.Println(config)
@@ -80,13 +84,14 @@ func initConfig() {
 func initWechat() {
 	fmt.Println("初始化微信")
 	account, err := officialAccount.NewOfficialAccount(&officialAccount.UserConfig{
-		AppID:  config.MpAppid,
-		Secret: config.MpSecret,
-		Token:  config.MpToken,
-		//Debug:  false,
-		//HttpDebug: true,
+		AppID:     config.MpAppid,
+		Secret:    config.MpSecret,
+		Token:     config.MpToken,
+		Debug:     config.WechatDebug,
+		HttpDebug: config.WechatHttpDebug,
 	})
 	if err != nil {
+		fmt.Println("初始化微信失败:", err)
 		return
 	}
 	officialAccountApp = account
