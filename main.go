@@ -78,6 +78,7 @@ func initConfig() {
 		fmt.Println("初始化配置失败:", err)
 		return
 	}
+	fmt.Println("初始化配置成功")
 	fmt.Println(config)
 }
 
@@ -94,6 +95,7 @@ func initWechat() {
 		fmt.Println("初始化微信失败:", err)
 		return
 	}
+	fmt.Println("初始化微信成功")
 	officialAccountApp = account
 }
 
